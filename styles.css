@@ -68,3 +68,8 @@ body {
 .image-card.flipped .back-side {
     transform: rotateY(0deg);
 }
+
+.image-card.highlighted .front-side {
+    outline: 2px solid red; /* Highlight style */
+    outline-offset: -2px;
+}
