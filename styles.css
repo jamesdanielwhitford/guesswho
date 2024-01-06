@@ -5,24 +5,66 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: auto; /* Added to handle overflow on smaller screens */
 }
 
 #game-board {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 images per row */
+    grid-template-columns: repeat(6, 1fr);
     gap: 10px;
+    width: max-content;
+    margin: auto;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    #game-board {
+        grid-template-columns: repeat(4, 1fr); /* Fewer columns on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    #game-board {
+        grid-template-columns: repeat(2, 1fr); /* Even fewer columns for very small screens */
+    }
 }
 
 .image-card {
     width: 100px;
-    height: 150px; /* Make the card taller */
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 150px;
     cursor: pointer;
+    perspective: 1000px; /* Needed for 3D flipping effect */
+    position: relative; /* Needed for absolute positioning of children */
+}
+
+.front-side, .back-side {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
     border: 1px solid #ddd;
-    background-size: contain; /* Make the image fit inside the card */
+    position: absolute;
+    backface-visibility: hidden; /* Hide the back of the flipped card */
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 12px;
+}
+
+.front-side {
+    background-size: contain;
     background-repeat: no-repeat;
-    background-position: center; /* Center the image */
+    background-position: center;
+}
+
+.back-side {
+    background-color: #fff;
+    transform: rotateY(180deg); /* Flip the back side */
+}
+
+.image-card.flipped .front-side {
+    transform: rotateY(180deg);
+}
+
+.image-card.flipped .back-side {
+    transform: rotateY(0deg);
 }

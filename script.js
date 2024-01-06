@@ -9,27 +9,35 @@ document.addEventListener("DOMContentLoaded", function() {
     const selectedFolderIndex = Math.floor(Math.random() * numberOfFolders) + 1;
     const selectedFolder = `folders/folder${selectedFolderIndex}/`;
 
-    const imagePaths = [];
-    for (let i = 1; i <= 24; i++) {
-        imagePaths.push(`${selectedFolder}image${i}.jpeg`); // Adjust the file extension if needed
-    }
+    fetch(`${selectedFolder}names.json`)
+    .then(response => response.json())
+    .then(names => {
+        names.forEach((nameObj, index) => {
+            const imagePath = `${selectedFolder}${nameObj.fileName}`;
+            const name = nameObj.name;
 
-    imagePaths.forEach((path, index) => {
-        const imageCard = document.createElement('div');
-        imageCard.classList.add('image-card');
-        imageCard.style.backgroundImage = `url('${path}')`; // Set initial background image
-        imageCard.style.backgroundSize = 'cover'; // Ensure image covers the card
-        imageCard.addEventListener('click', () => {
-            flipSound.currentTime = 0;
-            flipSound.play();
-            if (imageCard.classList.contains('flipped')) {
-                imageCard.style.backgroundImage = `url('${path}')`;
-                imageCard.classList.remove('flipped');
-            } else {
-                imageCard.style.backgroundImage = '';
-                imageCard.classList.add('flipped');
-            }
+            const imageCard = document.createElement('div');
+            imageCard.classList.add('image-card');
+
+            // Create front and back sides of the card
+            const frontSide = document.createElement('div');
+            frontSide.classList.add('front-side');
+            frontSide.style.backgroundImage = `url('${imagePath}')`;
+            const backSide = document.createElement('div');
+            backSide.classList.add('back-side');
+            backSide.textContent = name; // Add name to the back side
+
+            imageCard.appendChild(frontSide);
+            imageCard.appendChild(backSide);
+
+            imageCard.addEventListener('click', () => {
+                flipSound.currentTime = 0;
+                flipSound.play();
+                imageCard.classList.toggle('flipped');
+            });
+
+            gameBoard.appendChild(imageCard);
         });
-        gameBoard.appendChild(imageCard);
-    });
+    })
+    .catch(error => console.error('Error loading image data:', error));
 });
