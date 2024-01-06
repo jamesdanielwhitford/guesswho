@@ -3,11 +3,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const flipSound = document.getElementById('flip-sound');
     flipSound.preload = 'auto';
     flipSound.load();
-    const imagePaths = [];
 
-    // Generate image paths
+    // Select a random folder
+    const numberOfFolders = 1; // Update this to the actual number of folders you have
+    const selectedFolderIndex = Math.floor(Math.random() * numberOfFolders) + 1;
+    const selectedFolder = `folders/folder${selectedFolderIndex}/`;
+
+    const imagePaths = [];
     for (let i = 1; i <= 24; i++) {
-        imagePaths.push(`images/image${i}.jpeg`); // Adjust the file extension if needed
+        imagePaths.push(`${selectedFolder}image${i}.jpeg`); // Adjust the file extension if needed
     }
 
     imagePaths.forEach((path, index) => {
