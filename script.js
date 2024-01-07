@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const randomImages = seededShuffle([...allImages], seed).slice(0, 24);
 
     const flipSound = document.getElementById('flip-sound');
+    
 
     randomImages.forEach((imageName) => {
         const imagePath = `/images/${imageName}`;
@@ -60,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const imageCard = document.createElement('div');
         imageCard.classList.add('image-card');
+
 
         const frontSide = document.createElement('div');
         frontSide.classList.add('front-side');
@@ -76,6 +78,10 @@ document.addEventListener("DOMContentLoaded", function() {
             flipSound.currentTime = 0;
             flipSound.play();
             imageCard.classList.toggle('flipped');
+        });
+        
+        imageCard.addEventListener('dblclick', () => {
+            imageCard.classList.toggle('highlighted');
         });
 
         gameBoard.appendChild(imageCard);
