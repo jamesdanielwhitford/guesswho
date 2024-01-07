@@ -59,7 +59,7 @@ body {
 }
 
 .image-card.highlighted .front-side {
-    outline: 2px solid red;
+    outline: 4px solid red;
     outline-offset: -2px;
 }
 
