@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
         imageCard.appendChild(backSide);
 
         let holdTimer;
-        const holdTime = 500; // time in milliseconds for long press
+        const holdTime = 250; // time in milliseconds for long press
     
         const handleLongPressStart = () => {
             holdTimer = setTimeout(() => {
@@ -95,6 +95,11 @@ document.addEventListener("DOMContentLoaded", function() {
             flipSound.currentTime = 0;
             flipSound.play();
             imageCard.classList.toggle('flipped');
+        });
+
+        imageCard.addEventListener('dblclick', (e) => {
+            e.stopPropagation(); // Prevents the click event from firing after double-click
+            imageCard.classList.toggle('highlighted');
         });
 
         gameBoard.appendChild(imageCard);
