@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const gameBoard = document.getElementById('game-board');
 
-    // List of all image names
     const allImages = [
         "ali.jpg", "amy.jpg", "andy.jpg", "angelina.jpg", "awkwafina.jpg",
         "basquiat.jpg", "benedict.jpg", "betty.jpg", "beyonce.jpg", "bill.jpg",
@@ -19,15 +18,13 @@ document.addEventListener("DOMContentLoaded", function() {
         "taylor.jpg", "tiger.jpg", "tony.jpg", "trevor.jpg", "trump.jpg",
         "yoko.jpg", "zendaya.jpg"
     ];
-    
-    // Function to generate a seed based on current time's minute's tens place
+
     function generateSeed() {
         const currentTime = new Date();
         const minutes = currentTime.getMinutes();
         return Math.floor(minutes / 10);
     }
 
-    // Function to shuffle an array based on a seed
     function seededShuffle(array, seed) {
         let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -52,16 +49,11 @@ document.addEventListener("DOMContentLoaded", function() {
         return array;
     }
 
-    // Use the seed to shuffle the array of images and select the first 24
     const seed = generateSeed();
     const randomImages = seededShuffle([...allImages], seed).slice(0, 24);
 
-    // Load flip sound
     const flipSound = document.getElementById('flip-sound');
-    flipSound.preload = 'auto';
-    flipSound.load();
 
-    // Create and display image cards
     randomImages.forEach((imageName) => {
         const imagePath = `/images/${imageName}`;
         const name = imageName.split('.')[0];
@@ -69,10 +61,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const imageCard = document.createElement('div');
         imageCard.classList.add('image-card');
 
-        // Create front and back sides of the card
         const frontSide = document.createElement('div');
         frontSide.classList.add('front-side');
         frontSide.style.backgroundImage = `url('${imagePath}')`;
+
         const backSide = document.createElement('div');
         backSide.classList.add('back-side');
         backSide.textContent = name;
