@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
         imageCard.appendChild(backSide);
 
         let holdTimer;
-        const holdTime = 250; // time in milliseconds for long press
+        const holdTime = 400; // time in milliseconds for long press
     
         const handleLongPressStart = () => {
             holdTimer = setTimeout(() => {
