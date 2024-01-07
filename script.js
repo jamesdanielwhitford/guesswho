@@ -74,14 +74,15 @@ document.addEventListener("DOMContentLoaded", function() {
         imageCard.appendChild(frontSide);
         imageCard.appendChild(backSide);
 
+        imageCard.addEventListener('dblclick', (e) => {
+            e.stopPropagation(); // Prevents the click event from firing after double-click
+            imageCard.classList.toggle('highlighted');
+        });
+
         imageCard.addEventListener('click', () => {
             flipSound.currentTime = 0;
             flipSound.play();
             imageCard.classList.toggle('flipped');
-        });
-        
-        imageCard.addEventListener('dblclick', () => {
-            imageCard.classList.toggle('highlighted');
         });
 
         gameBoard.appendChild(imageCard);
