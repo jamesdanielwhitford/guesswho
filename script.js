@@ -74,10 +74,22 @@ document.addEventListener("DOMContentLoaded", function() {
         imageCard.appendChild(frontSide);
         imageCard.appendChild(backSide);
 
-        imageCard.addEventListener('dblclick', (e) => {
-            e.stopPropagation(); // Prevents the click event from firing after double-click
-            imageCard.classList.toggle('highlighted');
-        });
+        let holdTimer;
+        const holdTime = 500; // time in milliseconds for long press
+    
+        const handleLongPressStart = () => {
+            holdTimer = setTimeout(() => {
+                imageCard.classList.toggle('highlighted');
+            }, holdTime);
+        };
+    
+        const handleLongPressEnd = () => {
+            clearTimeout(holdTimer);
+        };
+    
+        imageCard.addEventListener('touchstart', handleLongPressStart);
+        imageCard.addEventListener('touchend', handleLongPressEnd);
+        imageCard.addEventListener('touchcancel', handleLongPressEnd);
 
         imageCard.addEventListener('click', () => {
             flipSound.currentTime = 0;
